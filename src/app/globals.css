@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0d1117;
+  --foreground: #e6edf3;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'Amiri', serif;
+}
+
+/* Islamic geometric pattern overlay */
+.geometric-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.geometric-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 40px,
+      rgba(201, 168, 76, 0.3) 40px,
+      rgba(201, 168, 76, 0.3) 41px
+    ),
+    repeating-linear-gradient(
+      60deg,
+      transparent,
+      transparent 40px,
+      rgba(201, 168, 76, 0.3) 40px,
+      rgba(201, 168, 76, 0.3) 41px
+    ),
+    repeating-linear-gradient(
+      120deg,
+      transparent,
+      transparent 40px,
+      rgba(201, 168, 76, 0.3) 40px,
+      rgba(201, 168, 76, 0.3) 41px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.geometric-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Gold gradient text */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #c9a84c, #f0d78c, #c9a84c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card styling */
+.card-islamic {
+  background: rgba(22, 27, 34, 0.8);
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+}
+
+.card-islamic:hover {
+  border-color: rgba(201, 168, 76, 0.3);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d1117;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #21262d;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #30363d;
+}
+
+/* RTL support */
+[dir="rtl"] {
+  text-align: right;
+}
+
+/* Loading shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(201, 168, 76, 0.05) 25%,
+    rgba(201, 168, 76, 0.1) 50%,
+    rgba(201, 168, 76, 0.05) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Verse divider */
+.verse-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.verse-divider::before,
+.verse-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.3), transparent);
+}
