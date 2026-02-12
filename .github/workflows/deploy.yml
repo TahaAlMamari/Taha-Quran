@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [master]
+    branches: [claude/build-al-rafiq-app-VTo8z]
   workflow_dispatch:
 
 permissions:
