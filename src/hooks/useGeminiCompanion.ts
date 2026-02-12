@@ -1,7 +1,11 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import { SYSTEM_INSTRUCTION } from '@/lib/constants';
 import { generateCompanionContext, generateReflectionPrompt } from '@/lib/context-engine';
+
+const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
 
 interface CompanionResponse {
   text: string;
@@ -20,20 +24,21 @@ export function useGeminiCompanion() {
     setResponse({ text: '', isLoading: true, error: null });
 
     try {
-      const res = await fetch('/api/companion', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt }),
-      });
-
-      if (!res.ok) {
-        const errData = await res.json();
-        throw new Error(errData.error || 'Failed to get companion response');
+      if (!API_KEY) {
+        throw new Error('GEMINI_API_KEY is not configured');
       }
 
-      const data = await res.json();
-      setResponse({ text: data.text, isLoading: false, error: null });
-      return data.text as string;
+      const genAI = new GoogleGenerativeAI(API_KEY);
+      const model = genAI.getGenerativeModel({
+        model: 'gemini-1.5-flash',
+        systemInstruction: SYSTEM_INSTRUCTION,
+      });
+
+      const result = await model.generateContent(prompt);
+      const text = result.response.text();
+
+      setResponse({ text, isLoading: false, error: null });
+      return text;
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Unknown error';
       setResponse({ text: '', isLoading: false, error: message });

@@ -5,10 +5,9 @@ import ServiceWorkerRegistrar from "@/components/ServiceWorkerRegistrar";
 export const metadata: Metadata = {
   title: "الرفيق - Al-Rafiq",
   description: "رفيقك الذكي في رحلتك مع القرآن الكريم",
-  manifest: "/manifest.json",
   icons: {
-    icon: "/icon-192.svg",
-    apple: "/icon-512.svg",
+    icon: "./icon-192.svg",
+    apple: "./icon-512.svg",
   },
 };
 
@@ -27,6 +26,7 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl" className="dark">
       <head>
+        <link rel="manifest" href="./manifest.json" />
         <link
           href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap"
           rel="stylesheet"
