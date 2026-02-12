@@ -1,13 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  headers: async () => [
-    {
-      source: '/manifest.json',
-      headers: [
-        { key: 'Content-Type', value: 'application/manifest+json' },
-      ],
-    },
-  ],
+  output: 'export',
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
+  assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH || '',
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
